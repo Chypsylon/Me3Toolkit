@@ -23,11 +23,18 @@
  */
 package eu.chypsylon.me3toolkit.util;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 /**
  *
  * @author Chypsylon <therealchypsylon@gmail.com>
  */
 public class Constants {
-    public static final String BACKUP_DIRECTORY = "/backup/";
-    public static final String BACKUP_DIRECTORY_BIN = BACKUP_DIRECTORY + "bin/";
+    public static final Path WORKING_DIRECTORY = Paths.get(new File(".").getAbsolutePath()).normalize();
+    public static final Path BACKUP_DIRECTORY = Paths.get(WORKING_DIRECTORY + "\\backup\\").normalize();
+    public static final Path BACKUP_DIRECTORY_BIN = BACKUP_DIRECTORY.resolve(".\\bin\\").normalize();
+    
+    public static final Path COALESCED_DIRECTORY = Paths.get("BIOGame\\CookedPCConsole\\Coalesced.bin");
 }

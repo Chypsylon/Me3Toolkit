@@ -29,6 +29,7 @@ import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -96,6 +97,7 @@ public class Util {
                 while ((line = output.readLine()) != null) {
                     line = line.trim();
                     if (line.startsWith("Install Dir")) {
+                        //FIXME: will fail if install directory path contains 4 or more consecutive spaces
                         return Paths.get(line.substring(line.lastIndexOf("    ") +4));
                     }
                 }
@@ -104,6 +106,39 @@ public class Util {
             LOG.log(Level.SEVERE, null, ex);
         }
         
+        return null;
+    }
+    
+    /**
+     * Copy the currently active Coalesced.bin from the ME3 folder to the backup folder
+     * @param me3InstallPath Root directory of the me3 installation
+     * @return Path to the backed up file if successful, null otherwise
+     */
+    public static Path backupCoalesced(Path me3InstallPath) {
+        String newName = "C-" + new SimpleDateFormat("yyyyMMddHHmmss").format(new java.util.Date()) + ".bin";
+        return backupCoalesced(me3InstallPath, newName);
+    }
+    
+    /**
+     * Copy the currently active Coalesced.bin from the ME3 folder to the backup folder
+     * @param me3InstallPath Root directory of the me3 installation
+     * @param newName File will be renamed to this
+     * @return Path to the backed up file if successful, null otherwise
+     */
+    public static Path backupCoalesced(Path me3InstallPath, String newName) {
+        Path coalescedPath = me3InstallPath.resolve(Constants.COALESCED_DIRECTORY);
+        if (Files.exists(coalescedPath)) {
+            try {
+                if (Files.notExists(Constants.BACKUP_DIRECTORY_BIN)) {
+                    Files.createDirectories(Constants.BACKUP_DIRECTORY_BIN);
+                }
+                Files.copy(coalescedPath, Constants.BACKUP_DIRECTORY_BIN.resolve(newName));
+                LOG.log(Level.INFO, "Copied Coalesced.bin from {0} to backup directory {1}", new Object[]{coalescedPath.toString(), Constants.BACKUP_DIRECTORY_BIN.toString()});
+                return Constants.BACKUP_DIRECTORY_BIN.resolve(newName);
+            } catch (IOException ex) {
+                LOG.log(Level.SEVERE, "Couldn't copy Coalesced.bin from " + coalescedPath.toString() + " to backup directory " + Constants.BACKUP_DIRECTORY_BIN.toString(), ex);
+            }
+        }
         return null;
     }
 }

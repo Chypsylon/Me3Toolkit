@@ -25,6 +25,7 @@ package eu.chypsylon.me3toolkit.toolkit;
 
 import eu.chypsylon.me3toolkit.ui.MainUi;
 import eu.chypsylon.me3toolkit.util.Util;
+import java.awt.event.ActionEvent;
 import java.nio.file.Path;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -75,6 +76,19 @@ public class Me3Toolkit {
 
         java.awt.EventQueue.invokeLater(() -> {
             mainUi = new MainUi();
+            
+            mainUi.getAboutPanel().getBackupButton().addActionListener((ActionEvent e) -> {
+                Path backupCoalesced = Util.backupCoalesced(me3InstallPath);
+                if (backupCoalesced != null) {
+                    mainUi.log("Backed up Coalesced.bin to " + backupCoalesced.toString());
+                } else {
+                    mainUi.log("ERROR: Couldn't back up Coalesced.bin");
+                }
+            });
+            
+            mainUi.getAboutPanel().getRestoreButton().addActionListener((ActionEvent e) -> {
+                throw new UnsupportedOperationException("Not supported yet.");
+            });
 
             mainUi.setVisible(true);
 

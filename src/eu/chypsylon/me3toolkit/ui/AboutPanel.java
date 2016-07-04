@@ -23,6 +23,8 @@
  */
 package eu.chypsylon.me3toolkit.ui;
 
+import javax.swing.JButton;
+
 /**
  *
  * @author Chypsylon <therealchypsylon@gmail.com>
@@ -90,4 +92,12 @@ public class AboutPanel extends javax.swing.JPanel {
     private javax.swing.JButton backupButton;
     private javax.swing.JButton restoreButton;
     // End of variables declaration//GEN-END:variables
+
+    public JButton getBackupButton() {
+        return backupButton;
+    }
+
+    public JButton getRestoreButton() {
+        return restoreButton;
+    }
 }

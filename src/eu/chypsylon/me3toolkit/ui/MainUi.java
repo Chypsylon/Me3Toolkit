@@ -36,7 +36,7 @@ public class MainUi extends javax.swing.JFrame {
      */
     public MainUi() {
         initComponents();
-        
+
         aboutPanel = new AboutPanel();
         mainTabbedPane.add("About", aboutPanel);
     }
@@ -115,16 +115,20 @@ public class MainUi extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MainUi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
     }
-    
+
     public void log(String s) {
         log(s, true);
     }
-    
+
     public void log(String s, boolean newLine) {
         logTextArea.append(s + (newLine ? "\r\n" : ""));
     }
 
+    public AboutPanel getAboutPanel() {
+        return aboutPanel;
+    }
     private final AboutPanel aboutPanel;
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel logLabel;
     private javax.swing.JPanel logPanel;
