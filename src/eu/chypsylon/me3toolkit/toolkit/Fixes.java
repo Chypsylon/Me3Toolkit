@@ -54,7 +54,8 @@ public class Fixes {
      */
     public static void applyFovFix(Me3Toolkit me3Toolkit, int fovValue) throws IOException, InterruptedException, ParseException {
         preFix(me3Toolkit);
-        applyFixJson("sfxgame.sfxgamemodebase", "Name=\"Shared_Aim\"", "( Name=\"Shared_Aim\", Command=\"SwapWeaponIfEmpty | TightAim | FOV 0 | OnRelease FOV " + fovValue + " | OnRelease StopTightAim\" )");
+        applyFixJson("sfxgame.sfxgamemodebase", "Name=\"Shared_Aim\"", 
+                "( Name=\"Shared_Aim\", Command=\"SwapWeaponIfEmpty | TightAim | FOV 0 | OnRelease FOV " + fovValue + " | OnRelease StopTightAim\" )");
         postFix(me3Toolkit);
     }
 
@@ -81,13 +82,15 @@ public class Fixes {
      */
     public static final void seperateOmniKey(Me3Toolkit me3Toolkit) throws IOException, InterruptedException, ParseException {
         preFix(me3Toolkit);
-        applyFixJson("sfxgame.sfxgamemodebase", "Name=\"Shared_Action\"", "( Name=\"Shared_Action\", Command=\"Exclusive TryStandingJump | OnRelease StormOff | OnHold 0.2 StormOn | Exclusive PressAction | OnTap 0.3 TapAction | OnHold 0.3 HoldAction\")");
-        applyFixJson("sfxgame.sfxgamemodebase", "Name=\"Shared_SquadAttack\"", "( Name=\"Shared_SquadAttack\", Command=\"Exclusive Used\" )");
+        applyFixJson("sfxgame.sfxgamemodebase", "Name=\"Shared_Action\"", 
+                "( Name=\"Shared_Action\", Command=\"Exclusive TryStandingJump | OnRelease StormOff | OnHold 0.2 StormOn | Exclusive PressAction | OnTap 0.3 TapAction | OnHold 0.3 HoldAction\")");
+        applyFixJson("sfxgame.sfxgamemodebase", "Name=\"Shared_SquadAttack\"", 
+                "( Name=\"Shared_SquadAttack\", Command=\"Exclusive Used\" )");
         postFix(me3Toolkit);
     }
     
     /**
-     * 
+     * Apply the specified fix to the extracted json
      * @param section
      * @param removeEntry
      * @param addEntry
@@ -95,11 +98,14 @@ public class Fixes {
      * @throws ParseException 
      */
     private static void applyFixJson(String section, String removeEntry, String addEntry) throws IOException, ParseException {
+        //TODO: filename as parameter
+        //TODO: use jsonpath instead
         try (FileReader fileReader = new FileReader(Constants.JSON_DIRECTORY.resolve("06_bioinput.json").toString())) {
             JSONParser jsonParser = new JSONParser();
             JSONObject jsonObject = (JSONObject) jsonParser.parse(fileReader);
             JSONArray bindings = (JSONArray) ((JSONObject) ((JSONObject) jsonObject.get("sections")).get(section)).get("bindings");
             
+            //delete old target entries
             for (Iterator it = bindings.iterator(); it.hasNext();) {
                 Object binding = it.next();
                 if (((String) binding).contains(removeEntry)) {

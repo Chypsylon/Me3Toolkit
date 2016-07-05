@@ -81,21 +81,25 @@ public class Me3Toolkit {
             mainUi = new MainUi();
             
             mainUi.getAboutPanel().getBackupButton().addActionListener((ActionEvent e) -> {
+                mainUi.getProgressBar().setIndeterminate(true);
                 Path backupCoalesced = Util.backupCoalesced(me3InstallPath);
-                if (backupCoalesced != null) {
+                if (Util.backupCoalesced(me3InstallPath) != null) {
                     mainUi.print("Backed up Coalesced.bin to " + backupCoalesced.toString());
                 } else {
                     mainUi.print("ERROR: Couldn't back up Coalesced.bin");
                 }
+                mainUi.getProgressBar().setIndeterminate(false);
             });
             
             mainUi.getAboutPanel().getRestoreButton().addActionListener((ActionEvent e) -> {
+                mainUi.getProgressBar().setIndeterminate(true);
                 Path restoreCoalesced = Util.restoreCoalesced(me3InstallPath);
                 if (restoreCoalesced != null) {
                     mainUi.print("Restored Coalesced.bin from " + restoreCoalesced.toString());
                 } else {
                     mainUi.print("ERROR: couldnt restore Coalesced.bin");
                 }
+                mainUi.getProgressBar().setIndeterminate(false);
             });
             
             //TODO: unify the actionHandlers for the fixes

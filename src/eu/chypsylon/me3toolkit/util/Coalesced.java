@@ -23,7 +23,6 @@
  */
 package eu.chypsylon.me3toolkit.util;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -39,7 +38,7 @@ public class Coalesced {
     private static final Logger LOG = Logger.getLogger(Coalesced.class.getName());
     
     /**
-     * 
+     * Use gibbeds tool to unpack the Coalesced binary to json
      * @param me3InstallPath 
      * @throws java.io.IOException 
      * @throws java.lang.InterruptedException 
@@ -49,7 +48,7 @@ public class Coalesced {
     }
     
     /**
-     * 
+     * Use gibbeds tool to unpack the Coalesced binary to json
      * @param coalescedPath
      * @param targetDir 
      * @throws java.io.IOException 
@@ -80,7 +79,7 @@ public class Coalesced {
     }
 
     /**
-     * 
+     * Use gibbeds tool to pack the extracted json back to binary
      * @param me3InstallPath 
      * @throws java.io.IOException 
      * @throws java.lang.InterruptedException 
@@ -90,10 +89,10 @@ public class Coalesced {
     }
     
     /**
-     * 
+     * Use gibbeds tool to pack the extracted json back to binary
      * @param jsonDir
      * @param coalescedPath
-     * @param deleteJsonDir  
+     * @param deleteJsonDir delete jsonDir if true
      * @throws java.io.IOException  
      * @throws java.lang.InterruptedException  
      */
