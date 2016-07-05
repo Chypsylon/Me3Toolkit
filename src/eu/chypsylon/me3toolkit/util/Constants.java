@@ -38,7 +38,7 @@ public class Constants {
     
     public static final Path JSON_DIRECTORY = Paths.get(WORKING_DIRECTORY + "\\jsonTmp\\").normalize();
     
-    public static final Path GIBBED_BINARY = Paths.get(WORKING_DIRECTORY + "\\gibbed\\Gibbed.MassEffect3.Coalesce.exe").normalize();
+    public static final Path GIBBED_BINARY = Paths.get(WORKING_DIRECTORY + "\\lib\\gibbed\\Gibbed.MassEffect3.Coalesce.exe").normalize();
     
     public static final Path COALESCED_DIRECTORY = Paths.get("BIOGame\\CookedPCConsole\\Coalesced.bin");
 }

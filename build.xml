@@ -10,6 +10,13 @@
 <project name="Me3Toolkit" default="default" basedir=".">
     <description>Builds, tests, and runs the project Me3Toolkit.</description>
     <import file="nbproject/build-impl.xml"/>
+    <target name="-post-compile">
+        <!--<copy file="lib/gibbed" todir="${dist.dir}/lib"/>-->
+        <copy todir="${dist.dir}/lib" >  
+            <fileset dir="lib/" includes="gibbed/**"/>
+        </copy>        
+    </target>
+    
     <!--
 
     There exist several targets which are by default empty and which can be 
