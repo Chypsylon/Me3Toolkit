@@ -1,0 +1,431 @@
+------------------------------------------------------------------------
+r90 | rick | 2013-07-26 04:07:02 +0000 (Fri, 26 Jul 2013) | 1 line
+
+Corrected issue with SFXArchiveFile on bigendian platforms.
+------------------------------------------------------------------------
+r89 | rick | 2012-05-17 01:22:50 +0000 (Thu, 17 May 2012) | 1 line
+
+Fixing broken toolbars (color toolbar, plot toolbar).
+------------------------------------------------------------------------
+r88 | rick | 2012-04-20 23:12:33 +0000 (Fri, 20 Apr 2012) | 1 line
+
+Undoing last two commits because they're wrong.
+------------------------------------------------------------------------
+r87 | rick | 2012-04-20 23:01:34 +0000 (Fri, 20 Apr 2012) | 1 line
+
+Grammar? Pshaw!
+------------------------------------------------------------------------
+r86 | rick | 2012-04-20 23:00:59 +0000 (Fri, 20 Apr 2012) | 1 line
+
+Clarify that Legion needs to be survive Mass Effect 2, not just be alive in general.
+------------------------------------------------------------------------
+r85 | rick | 2012-04-20 12:57:59 +0000 (Fri, 20 Apr 2012) | 1 line
+
+Clarify that Tali needs to be alive.
+------------------------------------------------------------------------
+r84 | rick | 2012-04-20 10:23:35 +0000 (Fri, 20 Apr 2012) | 2 lines
+
+- Some plot flags for [Rannoch: Admiral Koris], [Rannoch: Geth Fighter Squadrons], [Priority: Rannoch].
+- Notes on Geth / Quarian peace plot requirements.
+------------------------------------------------------------------------
+r83 | rick | 2012-04-20 08:37:38 +0000 (Fri, 20 Apr 2012) | 2 lines
+
+- Some more plot definitions.
+- Show a message box rather than throw an exception on duplicate plot ID definitions.
+------------------------------------------------------------------------
+r82 | rick | 2012-04-11 06:43:43 +0000 (Wed, 11 Apr 2012) | 1 line
+
+Update Russian localization credits.
+------------------------------------------------------------------------
+r81 | rick | 2012-04-11 06:29:19 +0000 (Wed, 11 Apr 2012) | 1 line
+
+Change icon resource to byte[] so Mono won't munge it and cause MS.NET to blow up.
+------------------------------------------------------------------------
+r80 | rick | 2012-04-11 04:22:04 +0000 (Wed, 11 Apr 2012) | 5 lines
+
+- New icon for SaveEdit.
+- More updates to Russian localization.
+- Move SaveEdit Localization to Properties.
+- Move icons out of Form-specific resource files, this should prevent resource duplication into non-English resources.
+- Remove ability to import ME2 headmorphs (it was completely unusable anyway due to resource location changes & incompatible LOD data).
+------------------------------------------------------------------------
+r79 | rick | 2012-04-03 20:04:58 +0000 (Tue, 03 Apr 2012) | 1 line
+
+Russian localization fixes.
+------------------------------------------------------------------------
+r78 | rick | 2012-04-03 18:51:29 +0000 (Tue, 03 Apr 2012) | 1 line
+
+Remove DLC entries from default save data.
+------------------------------------------------------------------------
+r77 | rick | 2012-04-03 18:44:30 +0000 (Tue, 03 Apr 2012) | 5 lines
+
+- This entire time I had the arguments to ArgumentNullException backwards. Oops.
+- SavePicker: Reimplement handling of new career pathing, should now match Mass Effect 3's behavior completely.
+- SavePicker: Reimplement detection of a career's class, this should fix issues in non-English locales.
+- SaveFormat: Fix some more niggling issues with localization.
+- SaveFormats: More Russian localization!
+------------------------------------------------------------------------
+r76 | rick | 2012-04-03 10:21:54 +0000 (Tue, 03 Apr 2012) | 1 line
+
+Fix some niggling issues with SaveFormats localization.
+------------------------------------------------------------------------
+r75 | rick | 2012-04-03 10:15:29 +0000 (Tue, 03 Apr 2012) | 4 lines
+
+- Add SaveFormats project.
+- Move all Save related code in FileFormats to SaveFormats.
+- Add resources for all Save related code to enable localization support.
+- As a side effect, of above, all Save classes now have display names for PropertyGrid.
+------------------------------------------------------------------------
+r74 | rick | 2012-04-02 23:55:44 +0000 (Mon, 02 Apr 2012) | 2 lines
+
+- Minor improvements to int / float plot setting.
+- Loading a save no longer causes some int plot variables to get set to the value they were again (this would non-harmfully cause some plot variables to get unnecessarily moved around).
+------------------------------------------------------------------------
+r73 | rick | 2012-04-02 21:04:38 +0000 (Mon, 02 Apr 2012) | 1 line
+
+Alphabetical sorting is hart. \o/
+------------------------------------------------------------------------
+r72 | rick | 2012-04-02 21:03:45 +0000 (Mon, 02 Apr 2012) | 2 lines
+
+- More work on Russian localization.
+- Update readme.
+------------------------------------------------------------------------
+r71 | rick | 2012-04-02 20:15:56 +0000 (Mon, 02 Apr 2012) | 3 lines
+
+- Add localization support to PlayerClass, PlayerGender, PlayerNotoriety, PlayerOrigin.
+- Fix two exception messages in SavePicker.
+- Two new Zaeed eye presets.
+------------------------------------------------------------------------
+r70 | rick | 2012-04-02 19:42:33 +0000 (Mon, 02 Apr 2012) | 2 lines
+
+- Work in progress Russian localization (thanks to Haoose, nekkit333).
+- Let's see if the Russian localization actually gets built correctly by Mono. \o/
+------------------------------------------------------------------------
+r69 | rick | 2012-04-01 21:54:32 +0000 (Sun, 01 Apr 2012) | 1 line
+
+Correct TIM presets, add alternative TIM preset.
+------------------------------------------------------------------------
+r68 | rick | 2012-04-01 14:08:52 +0000 (Sun, 01 Apr 2012) | 1 line
+
+Fix AssemblyInfo.
+------------------------------------------------------------------------
+r67 | rick | 2012-04-01 14:08:21 +0000 (Sun, 01 Apr 2012) | 6 lines
+
+- Rename project DecompressPackage to PackageDecompress.
+- Rename project UnpackPackage to PackageUnpack.
+- Rename project UnpackSFXArchive to SFXArchiveUnpack.
+- Boatloads of new plot flags.
+- Notes on plot bugs.
+- Add project ConditionalDump.
+------------------------------------------------------------------------
+r66 | rick | 2012-04-01 05:06:47 +0000 (Sun, 01 Apr 2012) | 1 line
+
+Add Kelly presets.
+------------------------------------------------------------------------
+r65 | rick | 2012-03-30 20:17:54 +0000 (Fri, 30 Mar 2012) | 4 lines
+
+- Initial implementation of plot editors in SaveEdit.
+- Some new appearance presets.
+- Initial plot presets (more to come, of course).
+- File dialogs now set their initial directory to the last directory.
+------------------------------------------------------------------------
+r64 | rick | 2012-03-30 04:25:56 +0000 (Fri, 30 Mar 2012) | 6 lines
+
+- Add BindingList<> support to Unreal.FileReader/Unreal.FileWriter/Unreal.ISerializer.cs
+- Change VectorParameters over to a BindingList<>.
+- Implemented new default male/female saves.
+- Basic character tab editing added.
+- Appearance color editing added.
+- Legacy ME2 head morphs import added.
+------------------------------------------------------------------------
+r63 | rick | 2012-03-25 21:42:00 +0000 (Sun, 25 Mar 2012) | 3 lines
+
+- Correct a crash occurring when loading Mass Effect 2 saves (see Issue #5 at http://code.google.com/p/me3tools/issues/detail?id=5).
+- Prevent loading of old (Mass Effect 2) saves in SaveEdit (see Issue #5 at http://code.google.com/p/me3tools/issues/detail?id=5)
+
+------------------------------------------------------------------------
+r62 | rick | 2012-03-24 04:58:36 +0000 (Sat, 24 Mar 2012) | 3 lines
+
+- Add group filtering in AudioExtract.
+- Fix potential crash in AudioExtract if ME3 install path detection fails.
+- Use end game state enum again in SFXSaveGameFile.
+------------------------------------------------------------------------
+r61 | rick | 2012-03-22 02:36:04 +0000 (Thu, 22 Mar 2012) | 2 lines
+
+- General improvements to AudioExtract code.
+- Implemented *.pcc audio track extraction in AudioExtract (somehow I forgot to, oops).
+------------------------------------------------------------------------
+r60 | rick | 2012-03-22 02:07:02 +0000 (Thu, 22 Mar 2012) | 1 line
+
+Fix anchoring of some controls in AudioExtract.
+------------------------------------------------------------------------
+r59 | rick | 2012-03-22 02:01:05 +0000 (Thu, 22 Mar 2012) | 1 line
+
+Add revorb support to AudioExtract.
+------------------------------------------------------------------------
+r58 | rick | 2012-03-22 01:36:43 +0000 (Thu, 22 Mar 2012) | 2 lines
+
+- AudioExtract now prompts a file open dialog when it can't find a file container.
+- Text search in AudioExtract now matches against full path rather than just the name.
+------------------------------------------------------------------------
+r57 | rick | 2012-03-22 01:25:27 +0000 (Thu, 22 Mar 2012) | 1 line
+
+Oops. Broke Mono build with an absolute path in csproj.
+------------------------------------------------------------------------
+r56 | rick | 2012-03-22 01:23:18 +0000 (Thu, 22 Mar 2012) | 3 lines
+
+- Fix WriteFileNameHash.
+- Add support for clearing lists in SaveEdit appearance presets.
+- Add AudioExtract project.
+------------------------------------------------------------------------
+r55 | rick | 2012-03-19 17:24:40 +0000 (Mon, 19 Mar 2012) | 1 line
+
+Catch JSON reader exceptions for people who make dumb mistakes when editing files.
+------------------------------------------------------------------------
+r54 | rick | 2012-03-19 12:52:04 +0000 (Mon, 19 Mar 2012) | 1 line
+
+Fix a crash with Coalesce when the input path had no directory in it.
+------------------------------------------------------------------------
+r53 | rick | 2012-03-18 16:26:59 +0000 (Sun, 18 Mar 2012) | 3 lines
+
+- Drop use of DynamicTypeDescriptor project (it's shit).
+- Moved some plot stuff out of PlotTable into PlotTableWrapper.
+- Named the unknowns in Loadout.
+------------------------------------------------------------------------
+r52 | rick | 2012-03-16 06:36:01 +0000 (Fri, 16 Mar 2012) | 1 line
+
+SFXSaveGameFile no longer uses the old ME2 Save.EndGameState enum for EndGameState.
+------------------------------------------------------------------------
+r51 | rick | 2012-03-15 06:10:29 +0000 (Thu, 15 Mar 2012) | 3 lines
+
+- Correcting http://code.google.com/p/me3tools/issues/detail?id=1 (bug with manual plot get/set int).
+- Merge Head Morph button into a dropdown like the Presets dropdown.
+- Name property on IntVariablePair, FloatVariablePair, Planet, System for collection editor.
+------------------------------------------------------------------------
+r50 | rick | 2012-03-13 04:35:39 +0000 (Tue, 13 Mar 2012) | 1 line
+
+Remove those try/catch tests.
+------------------------------------------------------------------------
+r49 | rick | 2012-03-13 04:24:27 +0000 (Tue, 13 Mar 2012) | 1 line
+
+Let's try that again.
+------------------------------------------------------------------------
+r48 | rick | 2012-03-13 04:18:20 +0000 (Tue, 13 Mar 2012) | 1 line
+
+
+------------------------------------------------------------------------
+r47 | rick | 2012-03-13 04:08:02 +0000 (Tue, 13 Mar 2012) | 1 line
+
+Try/atch on some stuff in SaveEdit constructor.
+------------------------------------------------------------------------
+r46 | rick | 2012-03-12 20:30:49 +0000 (Mon, 12 Mar 2012) | 1 line
+
+Oops, forgot to anchor Issues label properly.
+------------------------------------------------------------------------
+r45 | rick | 2012-03-12 20:18:47 +0000 (Mon, 12 Mar 2012) | 1 line
+
+Workaround for Mono's stupidly converting my GIF98a to a GIF97a.
+------------------------------------------------------------------------
+r44 | rick | 2012-03-12 19:50:48 +0000 (Mon, 12 Mar 2012) | 3 lines
+
+- Appearance presets (with an example The Illusive Man's Eyes preset).
+- Manual plot log clear button actually works now.
+- Links to FAQ / Issues.
+------------------------------------------------------------------------
+r43 | rick | 2012-03-12 11:46:17 +0000 (Mon, 12 Mar 2012) | 1 line
+
+Add a note about including save files to the read exception message.
+------------------------------------------------------------------------
+r42 | rick | 2012-03-12 11:43:17 +0000 (Mon, 12 Mar 2012) | 1 line
+
+Whoops, forgot to seek back.
+------------------------------------------------------------------------
+r41 | rick | 2012-03-12 11:42:28 +0000 (Mon, 12 Mar 2012) | 3 lines
+
+- More sanity checking on save loading.(ie, deny attempts to load Xbox 360 CON files, catch exceptions on read).
+- Fix icons for a few of the tabs.
+- Change Player tab icon based on save gender.
+------------------------------------------------------------------------
+r40 | rick | 2012-03-12 04:37:17 +0000 (Mon, 12 Mar 2012) | 4 lines
+
+- Tag some List<string>'s with the StringCollectionEditor.
+- Rename SaveFile to SFXSaveGameFile.
+- Initial, incomplete, implementation of ME3's save import process.
+- Changes to PlotTable and ME1PlotTable to make the BitArray accessible.
+------------------------------------------------------------------------
+r39 | rick | 2012-03-11 22:26:27 +0000 (Sun, 11 Mar 2012) | 2 lines
+
+- BitArray serialization now never recreates the BitArray, instead clears it.
+- Refactored PlotTable.BoolVariablesWrapper and ME1PlotTable.BoolVariablesWrapper to a single BitArray.
+------------------------------------------------------------------------
+r38 | rick | 2012-03-11 21:59:24 +0000 (Sun, 11 Mar 2012) | 1 line
+
+Hide magic name properties on GAWAsset/MorphFeature from PropertyGrid.
+------------------------------------------------------------------------
+r37 | rick | 2012-03-11 21:55:47 +0000 (Sun, 11 Mar 2012) | 2 lines
+
+- All serializable class fields are now initialized.
+- FileReader now require fields to be non-null.
+------------------------------------------------------------------------
+r36 | rick | 2012-03-11 21:21:33 +0000 (Sun, 11 Mar 2012) | 4 lines
+
+- GAWAsset Name property for collection editor.
+- Manual plot editing (so you don't have to use the collection editors in the raw tab).
+- Code reformat in Editor, SavePicker.
+- Correct extension in UnpackSFXArchive.
+------------------------------------------------------------------------
+r35 | rick | 2012-03-11 12:24:44 +0000 (Sun, 11 Mar 2012) | 1 line
+
+Adding app.config's to all projects.
+------------------------------------------------------------------------
+r34 | rick | 2012-03-11 11:55:11 +0000 (Sun, 11 Mar 2012) | 1 line
+
+Add readme.
+------------------------------------------------------------------------
+r33 | rick | 2012-03-11 11:45:49 +0000 (Sun, 11 Mar 2012) | 1 line
+
+Reenabling DynamicTypeDescriptor in SaveEdit.
+------------------------------------------------------------------------
+r32 | rick | 2012-03-11 10:28:16 +0000 (Sun, 11 Mar 2012) | 1 line
+
+Temporarily disabling DynamicTypeDescriptor in SaveEdit.
+------------------------------------------------------------------------
+r31 | rick | 2012-03-11 03:22:30 +0000 (Sun, 11 Mar 2012) | 4 lines
+
+Double-click support for SavePicker.
+
+Also, forgot to mention in the previous commit:
+- Added helper properties to PlotTable for New Game+ Count, Paragon Points, Renegade Points, Reputation, Reputation Points, Persuade Multiplier, Is ME1 Import, Is ME2 Import.
+------------------------------------------------------------------------
+r30 | rick | 2012-03-11 02:37:01 +0000 (Sun, 11 Mar 2012) | 4 lines
+
+- Completed pass of decorating all save elements with their original names.
+- Corrected EndGameState type name.
+- Corrected Placeable serialization.
+- Implemented enumerable wrappers around Plot.BoolVariables and ME1Plot.BoolVariables so they are correctly editable through the PropertyGrid.
+------------------------------------------------------------------------
+r29 | rick | 2012-03-10 14:24:20 +0000 (Sat, 10 Mar 2012) | 2 lines
+
+- Moving all projects that were using Client Profile to the normal profile.
+- Disabling Mono targets for SaveEdit as it's not currently necessary.
+------------------------------------------------------------------------
+r28 | rick | 2012-03-10 09:23:47 +0000 (Sat, 10 Mar 2012) | 1 line
+
+Removing Mono workarounds now that they are no longer necessary.
+------------------------------------------------------------------------
+r27 | rick | 2012-03-10 09:04:36 +0000 (Sat, 10 Mar 2012) | 1 line
+
+Let's see if my solution for my Mono problems with generating resources is gone for good.
+------------------------------------------------------------------------
+r26 | rick | 2012-03-10 02:17:36 +0000 (Sat, 10 Mar 2012) | 1 line
+
+Extraneous ;'s.
+------------------------------------------------------------------------
+r25 | rick | 2012-03-10 02:13:49 +0000 (Sat, 10 Mar 2012) | 1 line
+
+Attempting to resolve a crash caused by Mono's inability to generate MS.NET compatible resources. Looks like it's a different issue than the one I already encountered, too. Joy.
+------------------------------------------------------------------------
+r24 | rick | 2012-03-09 20:35:05 +0000 (Fri, 09 Mar 2012) | 1 line
+
+Rename Crc32.cs (since TortoiseSVN can't do it normally).
+------------------------------------------------------------------------
+r23 | rick | 2012-03-09 20:34:29 +0000 (Fri, 09 Mar 2012) | 3 lines
+
+- Improvements as suggested by ReSharper.
+- Initial pass of decorating all save elements with their original names.
+- SaveEdit localization support.
+------------------------------------------------------------------------
+r22 | rick | 2012-03-09 01:23:08 +0000 (Fri, 09 Mar 2012) | 1 line
+
+Oops. Forgot to check if there was a save available when saving via career picker.
+------------------------------------------------------------------------
+r21 | rick | 2012-03-09 01:20:35 +0000 (Fri, 09 Mar 2012) | 2 lines
+
+- All new career picking dialog! Woohoo!
+- Improved string handling in serialization.
+------------------------------------------------------------------------
+r20 | rick | 2012-03-08 20:43:13 +0000 (Thu, 08 Mar 2012) | 1 line
+
+Add build stamping to SaveEdit.
+------------------------------------------------------------------------
+r19 | rick | 2012-03-08 20:29:38 +0000 (Thu, 08 Mar 2012) | 1 line
+
+Remove FileFormat's dependency on Newtonsoft.Json (will make SaveEdit builds smaller).
+------------------------------------------------------------------------
+r18 | rick | 2012-03-08 20:20:35 +0000 (Thu, 08 Mar 2012) | 1 line
+
+Implement Placeable serialization.
+------------------------------------------------------------------------
+r17 | rick | 2012-03-08 19:50:00 +0000 (Thu, 08 Mar 2012) | 1 line
+
+Let's try that again. Maybe Mono won't corrupt the .res file this time!
+------------------------------------------------------------------------
+r16 | rick | 2012-03-08 19:23:50 +0000 (Thu, 08 Mar 2012) | 1 line
+
+Well, Visual Studio is a jerk and stored a full path.
+------------------------------------------------------------------------
+r15 | rick | 2012-03-08 19:21:28 +0000 (Thu, 08 Mar 2012) | 1 line
+
+Switch SaveEdit to use a .res file instead of relying on ApplicationIcon, since Mono is too inept to provide /win32icon on non-Windows.
+------------------------------------------------------------------------
+r14 | rick | 2012-03-07 11:53:32 +0000 (Wed, 07 Mar 2012) | 2 lines
+
+- More ComponentModel metadata for Save classes.
+- Head morph import/export for SaveEdit.
+------------------------------------------------------------------------
+r13 | rick | 2012-03-07 10:30:40 +0000 (Wed, 07 Mar 2012) | 1 line
+
+More endian fixes.
+------------------------------------------------------------------------
+r12 | rick | 2012-03-07 10:28:27 +0000 (Wed, 07 Mar 2012) | 1 line
+
+Fix filter selection in SaveEdit so when xbsav is selected, it properly serializes in big-endian.
+------------------------------------------------------------------------
+r11 | rick | 2012-03-07 10:25:12 +0000 (Wed, 07 Mar 2012) | 2 lines
+
+- Implemented SaveFile serialization.
+- SaveEdit now saves.
+------------------------------------------------------------------------
+r10 | rick | 2012-03-07 09:15:02 +0000 (Wed, 07 Mar 2012) | 1 line
+
+Fixing SaveEdit compilation issues under Mono (Will they ever fix this? Probably not. I mean, why let people run Mono compiled executables in MS.NET, right?). https://bugzilla.novell.com/show_bug.cgi?id=641826
+------------------------------------------------------------------------
+r9 | rick | 2012-03-07 08:55:08 +0000 (Wed, 07 Mar 2012) | 3 lines
+
+- SaveFile serialization in FileFormats.
+- Add SaveEdit (no saving yet :-)
+
+------------------------------------------------------------------------
+r8 | rick | 2012-03-05 12:30:06 +0000 (Mon, 05 Mar 2012) | 1 line
+
+Correct endian mistake in CoalescedFile. Only affects big-endian serialization.
+------------------------------------------------------------------------
+r7 | rick | 2012-03-04 09:56:47 +0000 (Sun, 04 Mar 2012) | 1 line
+
+Add UnpackSFXArchive project, *.sfar unpacker.
+------------------------------------------------------------------------
+r6 | rick | 2012-02-21 06:09:35 +0000 (Tue, 21 Feb 2012) | 1 line
+
+Output names (and classes, if available) of resources being unpacked.
+------------------------------------------------------------------------
+r5 | rick | 2012-02-21 06:02:16 +0000 (Tue, 21 Feb 2012) | 1 line
+
+Number exports since exports can have duplicate names.
+------------------------------------------------------------------------
+r4 | rick | 2012-02-21 05:09:14 +0000 (Tue, 21 Feb 2012) | 1 line
+
+Add DecompressPackage, UnpackPackage.
+------------------------------------------------------------------------
+r3 | rick | 2012-02-16 07:10:02 +0000 (Thu, 16 Feb 2012) | 1 line
+
+JSON, not XML.
+------------------------------------------------------------------------
+r2 | rick | 2012-02-16 07:02:39 +0000 (Thu, 16 Feb 2012) | 2 lines
+
+Add FileFormats, Coalesce.
+
+------------------------------------------------------------------------
+r1 | rick | 2012-02-15 18:20:34 +0000 (Wed, 15 Feb 2012) | 1 line
+
+Initial repository structure.
+------------------------------------------------------------------------
