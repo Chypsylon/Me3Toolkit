@@ -41,8 +41,8 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="mainTabbedPane" pref="278" max="32767" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="mainTabbedPane" pref="314" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="logPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -71,7 +71,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="logLabel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="logScrollPane" pref="158" max="32767" attributes="0"/>
+                  <Component id="logScrollPane" pref="220" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

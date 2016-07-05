@@ -39,9 +39,13 @@ public class MainUi extends javax.swing.JFrame {
 
         aboutPanel = new AboutPanel();
         fovFixPanel = new FovFixPanel();
+        textChatPanel = new TextChatPanel();
+        splitOmnikeyPanel = new SplitOmnikeyPanel();
         
         mainTabbedPane.add("About", aboutPanel);
         mainTabbedPane.add("FOV Fix", fovFixPanel);
+        mainTabbedPane.add("Activate Text Chat", textChatPanel);
+        mainTabbedPane.add("Split Omnikey", splitOmnikeyPanel);
     }
 
     /**
@@ -84,7 +88,7 @@ public class MainUi extends javax.swing.JFrame {
             .addGroup(logPanelLayout.createSequentialGroup()
                 .addComponent(logLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(logScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE))
+                .addComponent(logScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -102,8 +106,8 @@ public class MainUi extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(mainTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(mainTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(logPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -134,9 +138,19 @@ public class MainUi extends javax.swing.JFrame {
     public FovFixPanel getFovFixPanel() {
         return fovFixPanel;
     }
+
+    public TextChatPanel getTextChatPanel() {
+        return textChatPanel;
+    }
+
+    public SplitOmnikeyPanel getSplitOmnikeyPanel() {
+        return splitOmnikeyPanel;
+    }
     
     private final AboutPanel aboutPanel;
     private final FovFixPanel fovFixPanel;
+    private final TextChatPanel textChatPanel;
+    private final SplitOmnikeyPanel splitOmnikeyPanel;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel logLabel;

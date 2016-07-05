@@ -41,4 +41,6 @@ public class Constants {
     public static final Path GIBBED_BINARY = Paths.get(WORKING_DIRECTORY + "\\gibbed\\Gibbed.MassEffect3.Coalesce.exe").normalize();
     
     public static final Path COALESCED_DIRECTORY = Paths.get("BIOGame\\CookedPCConsole\\Coalesced.bin");
+    
+    public static final String FIX_SEPARATOR = "**********";
 }

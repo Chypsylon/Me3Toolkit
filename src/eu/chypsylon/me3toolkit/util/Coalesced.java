@@ -23,6 +23,8 @@
  */
 package eu.chypsylon.me3toolkit.util;
 
+import eu.chypsylon.me3toolkit.ui.MainUi;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -90,16 +92,17 @@ public class Coalesced {
      * @return 
      */
     public static boolean jsonToBin(Path me3InstallPath) {
-        return jsonToBin(Constants.JSON_DIRECTORY, me3InstallPath.resolve(Constants.COALESCED_DIRECTORY));
+        return jsonToBin(Constants.JSON_DIRECTORY, me3InstallPath.resolve(Constants.COALESCED_DIRECTORY), true);
     }
     
     /**
      * 
      * @param jsonDir
      * @param coalescedPath
-     * @return 
+     * @param deleteJsonDir
+     * @return  
      */
-    public static boolean jsonToBin(Path jsonDir, Path coalescedPath) {
+    public static boolean jsonToBin(Path jsonDir, Path coalescedPath, java.lang.Boolean deleteJsonDir) {
         if (Files.notExists(jsonDir)) {
             LOG.log(Level.SEVERE, "Source directory for unpacking doesn't exist");
             return false;
@@ -111,14 +114,38 @@ public class Coalesced {
             Process gibbed = processBuilder.start();
             if (gibbed.waitFor() == 0) {
                 LOG.log(Level.INFO, "Gibbed packed target {0} to {1}", new Object[]{jsonDir.toString(), coalescedPath.toString()});
+                if (deleteJsonDir) {
+                    deleteDirectory(jsonDir.toFile());
+                }
                 return true;
             } else {
-                LOG.log(Level.SEVERE, "Gibbed couldn't unpack target {0} to {1}", new Object[]{jsonDir.toString(), coalescedPath.toString()});
+                LOG.log(Level.SEVERE, "Gibbed couldn't pack target {0} to {1}", new Object[]{jsonDir.toString(), coalescedPath.toString()});
                 return false;
             }
         } catch (IOException | InterruptedException ex) {
             LOG.log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+   
+    /**
+     * Recursively delete a directory and all its contents
+     * @param directory Directory to delete
+     * @return true if the directory got deleted
+     */
+    private static void deleteDirectory(File directory) throws IOException {
+        if (directory.exists()) {
+            File[] files = directory.listFiles();
+            if (null != files) {
+                for (File file : files) {
+                    if (file.isDirectory()) {
+                        deleteDirectory(file);
+                    } else {
+                        Files.delete(file.toPath());
+                    }
+                }
+            }
+        }
+        Files.delete(directory.toPath());
     }
 }

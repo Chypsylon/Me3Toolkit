@@ -24,6 +24,7 @@
 package eu.chypsylon.me3toolkit.toolkit;
 
 import eu.chypsylon.me3toolkit.ui.MainUi;
+import eu.chypsylon.me3toolkit.util.Constants;
 import eu.chypsylon.me3toolkit.util.Util;
 import java.awt.event.ActionEvent;
 import java.nio.file.Path;
@@ -97,9 +98,10 @@ public class Me3Toolkit {
             
             mainUi.getFovFixPanel().getApplyFovButton().addActionListener((ActionEvent e) -> {
                 try {
+                    mainUi.log(Constants.FIX_SEPARATOR);
                     int newFovValue = (int)mainUi.getFovFixPanel().getFovSpinner().getValue();
                     LOG.log(Level.INFO, "Setting FOV to {0}", newFovValue);
-                    if (FovFix.applyFovFix(this, newFovValue)) {
+                    if (Fixes.applyFovFix(this, newFovValue)) {
                         LOG.log(Level.INFO, "Set FOV to {0}", newFovValue);
                         mainUi.log("Set FOV to " + newFovValue);
                     } else {
@@ -109,6 +111,34 @@ public class Me3Toolkit {
                 } catch (Exception ex) {
                     LOG.log(Level.SEVERE, null, ex);
                 }
+                mainUi.log(Constants.FIX_SEPARATOR);
+            });
+            
+            mainUi.getTextChatPanel().getActivateButton().addActionListener((ActionEvent e) -> {
+                mainUi.log(Constants.FIX_SEPARATOR);
+                String hotkey = mainUi.getTextChatPanel().getHotkeyTextField().getText();
+                LOG.log(Level.INFO, "Activating text chat on hotkey {0}", hotkey);
+                if (Fixes.activateTextChat(this, hotkey)) {
+                    LOG.log(Level.INFO, "Set text chat hotkey to {0}", hotkey);
+                    mainUi.log("Set text chat hotkey to " + hotkey);
+                } else {
+                    LOG.log(Level.SEVERE, "Couldn't set text chat hotkey");
+                    mainUi.log("ERROR: Couldn't set text chat hotkey");
+                }
+                mainUi.log(Constants.FIX_SEPARATOR);
+            });
+            
+            mainUi.getSplitOmnikeyPanel().getApplyButton().addActionListener((ActionEvent e) -> {
+                mainUi.log(Constants.FIX_SEPARATOR);
+                LOG.log(Level.INFO, "Splitting omnikey ...");
+                if (Fixes.seperateOmniKey(this)) {
+                    LOG.log(Level.INFO, "Split omnikey");
+                    mainUi.log("Split Omnikey");
+                } else {
+                    LOG.log(Level.SEVERE, "Couldn't split omnikey");
+                    mainUi.log("ERROR: Couldn't split omnikey");
+                }
+                mainUi.log(Constants.FIX_SEPARATOR);
             });
 
             mainUi.setVisible(true);
