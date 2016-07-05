@@ -29,6 +29,7 @@ import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -137,6 +138,28 @@ public class Util {
                 return Constants.BACKUP_DIRECTORY_BIN.resolve(newName);
             } catch (IOException ex) {
                 LOG.log(Level.SEVERE, "Couldn't copy Coalesced.bin from " + coalescedPath.toString() + " to backup directory " + Constants.BACKUP_DIRECTORY_BIN.toString(), ex);
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * Prompt the user to select a File and overwrite the existing Coalesced.bin
+     * @param me3InstallPath
+     * @return the original path of the file restored or null if restore wasn't successful
+     */
+    public static Path restoreCoalesced(Path me3InstallPath) {
+        JFileChooser chooser = new JFileChooser(Constants.BACKUP_DIRECTORY_BIN.toString());
+        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        
+        int ret = chooser.showOpenDialog(null);
+        if (ret == JFileChooser.APPROVE_OPTION) {
+            try {
+                //TODO: maybe validate File header
+                Files.copy(chooser.getSelectedFile().toPath(), me3InstallPath.resolve(Constants.COALESCED_DIRECTORY), StandardCopyOption.REPLACE_EXISTING);
+                return chooser.getSelectedFile().toPath();
+            } catch (IOException ex) {
+                LOG.log(Level.SEVERE, null, ex);
             }
         }
         return null;

@@ -87,7 +87,12 @@ public class Me3Toolkit {
             });
             
             mainUi.getAboutPanel().getRestoreButton().addActionListener((ActionEvent e) -> {
-                throw new UnsupportedOperationException("Not supported yet.");
+                Path restoreCoalesced = Util.restoreCoalesced(me3InstallPath);
+                if (restoreCoalesced != null) {
+                    mainUi.log("Restored Coalesced.bin from " + restoreCoalesced.toString());
+                } else {
+                    mainUi.log("ERROR: couldnt restore Coalesced.bin");
+                }
             });
 
             mainUi.setVisible(true);
