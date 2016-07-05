@@ -94,6 +94,22 @@ public class Me3Toolkit {
                     mainUi.log("ERROR: couldnt restore Coalesced.bin");
                 }
             });
+            
+            mainUi.getFovFixPanel().getApplyFovButton().addActionListener((ActionEvent e) -> {
+                try {
+                    int newFovValue = (int)mainUi.getFovFixPanel().getFovSpinner().getValue();
+                    LOG.log(Level.INFO, "Setting FOV to {0}", newFovValue);
+                    if (FovFix.applyFovFix(this, newFovValue)) {
+                        LOG.log(Level.INFO, "Set FOV to {0}", newFovValue);
+                        mainUi.log("Set FOV to " + newFovValue);
+                    } else {
+                        LOG.log(Level.SEVERE, "Couldn't apply new FOV value");
+                        mainUi.log("ERROR: Couldn't apply new FOV value");
+                    }
+                } catch (Exception ex) {
+                    LOG.log(Level.SEVERE, null, ex);
+                }
+            });
 
             mainUi.setVisible(true);
 

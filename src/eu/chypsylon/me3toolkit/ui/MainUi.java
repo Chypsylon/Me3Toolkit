@@ -38,7 +38,10 @@ public class MainUi extends javax.swing.JFrame {
         initComponents();
 
         aboutPanel = new AboutPanel();
+        fovFixPanel = new FovFixPanel();
+        
         mainTabbedPane.add("About", aboutPanel);
+        mainTabbedPane.add("FOV Fix", fovFixPanel);
     }
 
     /**
@@ -127,7 +130,13 @@ public class MainUi extends javax.swing.JFrame {
     public AboutPanel getAboutPanel() {
         return aboutPanel;
     }
+    
+    public FovFixPanel getFovFixPanel() {
+        return fovFixPanel;
+    }
+    
     private final AboutPanel aboutPanel;
+    private final FovFixPanel fovFixPanel;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel logLabel;
