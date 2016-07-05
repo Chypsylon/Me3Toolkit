@@ -98,8 +98,11 @@ public class Me3Toolkit {
                 }
             });
             
+            //TODO: unify the actionHandlers for the fixes
             mainUi.getFovFixPanel().getApplyFovButton().addActionListener((ActionEvent e) -> {
                 try {
+                    //TODO: not really useful as long as everything is done in same thread...
+                    mainUi.getProgressBar().setIndeterminate(true);
                     mainUi.printSeperator();
                     int newFovValue = (int) mainUi.getFovFixPanel().getFovSpinner().getValue();
                     LOG.log(Level.INFO, "Setting FOV to {0}", newFovValue);
@@ -111,10 +114,12 @@ public class Me3Toolkit {
                     mainUi.print("ERROR: Couldn't apply new FOV value");
                 }
                 mainUi.printSeperator();
+                mainUi.getProgressBar().setIndeterminate(false);
             });
             
             mainUi.getTextChatPanel().getActivateButton().addActionListener((ActionEvent e) -> {
                 try {
+                    mainUi.getProgressBar().setIndeterminate(true);
                     mainUi.printSeperator();
                     String hotkey = mainUi.getTextChatPanel().getHotkeyTextField().getText();
                     LOG.log(Level.INFO, "Activating text chat on hotkey {0}", hotkey);
@@ -126,10 +131,12 @@ public class Me3Toolkit {
                     mainUi.print("ERROR: Couldn't set text chat hotkey");
                 }
                 mainUi.printSeperator();
+                mainUi.getProgressBar().setIndeterminate(false);
             });
             
             mainUi.getSplitOmnikeyPanel().getApplyButton().addActionListener((ActionEvent e) -> {
                 try {
+                    mainUi.getProgressBar().setIndeterminate(true);
                     mainUi.printSeperator();
                     LOG.log(Level.INFO, "Splitting omnikey ...");
                     Fixes.seperateOmniKey(this);
@@ -140,6 +147,7 @@ public class Me3Toolkit {
                     mainUi.print("ERROR: Couldn't split omnikey");
                 }
                 mainUi.printSeperator();
+                mainUi.getProgressBar().setIndeterminate(false);
             });
 
             try {
