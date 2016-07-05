@@ -27,6 +27,7 @@ import eu.chypsylon.me3toolkit.ui.MainUi;
 import eu.chypsylon.me3toolkit.util.Constants;
 import eu.chypsylon.me3toolkit.util.Util;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -81,70 +82,77 @@ public class Me3Toolkit {
             mainUi.getAboutPanel().getBackupButton().addActionListener((ActionEvent e) -> {
                 Path backupCoalesced = Util.backupCoalesced(me3InstallPath);
                 if (backupCoalesced != null) {
-                    mainUi.log("Backed up Coalesced.bin to " + backupCoalesced.toString());
+                    mainUi.print("Backed up Coalesced.bin to " + backupCoalesced.toString());
                 } else {
-                    mainUi.log("ERROR: Couldn't back up Coalesced.bin");
+                    mainUi.print("ERROR: Couldn't back up Coalesced.bin");
                 }
             });
             
             mainUi.getAboutPanel().getRestoreButton().addActionListener((ActionEvent e) -> {
                 Path restoreCoalesced = Util.restoreCoalesced(me3InstallPath);
                 if (restoreCoalesced != null) {
-                    mainUi.log("Restored Coalesced.bin from " + restoreCoalesced.toString());
+                    mainUi.print("Restored Coalesced.bin from " + restoreCoalesced.toString());
                 } else {
-                    mainUi.log("ERROR: couldnt restore Coalesced.bin");
+                    mainUi.print("ERROR: couldnt restore Coalesced.bin");
                 }
             });
             
             mainUi.getFovFixPanel().getApplyFovButton().addActionListener((ActionEvent e) -> {
                 try {
-                    mainUi.log(Constants.FIX_SEPARATOR);
+                    mainUi.printSeperator();
                     int newFovValue = (int)mainUi.getFovFixPanel().getFovSpinner().getValue();
                     LOG.log(Level.INFO, "Setting FOV to {0}", newFovValue);
                     if (Fixes.applyFovFix(this, newFovValue)) {
                         LOG.log(Level.INFO, "Set FOV to {0}", newFovValue);
-                        mainUi.log("Set FOV to " + newFovValue);
+                        mainUi.print("Set FOV to " + newFovValue);
                     } else {
                         LOG.log(Level.SEVERE, "Couldn't apply new FOV value");
-                        mainUi.log("ERROR: Couldn't apply new FOV value");
+                        mainUi.print("ERROR: Couldn't apply new FOV value");
                     }
                 } catch (Exception ex) {
                     LOG.log(Level.SEVERE, null, ex);
                 }
-                mainUi.log(Constants.FIX_SEPARATOR);
+                mainUi.printSeperator();
             });
             
             mainUi.getTextChatPanel().getActivateButton().addActionListener((ActionEvent e) -> {
-                mainUi.log(Constants.FIX_SEPARATOR);
+                mainUi.printSeperator();
                 String hotkey = mainUi.getTextChatPanel().getHotkeyTextField().getText();
                 LOG.log(Level.INFO, "Activating text chat on hotkey {0}", hotkey);
                 if (Fixes.activateTextChat(this, hotkey)) {
                     LOG.log(Level.INFO, "Set text chat hotkey to {0}", hotkey);
-                    mainUi.log("Set text chat hotkey to " + hotkey);
+                    mainUi.print("Set text chat hotkey to " + hotkey);
                 } else {
                     LOG.log(Level.SEVERE, "Couldn't set text chat hotkey");
-                    mainUi.log("ERROR: Couldn't set text chat hotkey");
+                    mainUi.print("ERROR: Couldn't set text chat hotkey");
                 }
-                mainUi.log(Constants.FIX_SEPARATOR);
+                mainUi.printSeperator();
             });
             
             mainUi.getSplitOmnikeyPanel().getApplyButton().addActionListener((ActionEvent e) -> {
-                mainUi.log(Constants.FIX_SEPARATOR);
+                mainUi.printSeperator();
                 LOG.log(Level.INFO, "Splitting omnikey ...");
                 if (Fixes.seperateOmniKey(this)) {
                     LOG.log(Level.INFO, "Split omnikey");
-                    mainUi.log("Split Omnikey");
+                    mainUi.print("Split Omnikey");
                 } else {
                     LOG.log(Level.SEVERE, "Couldn't split omnikey");
-                    mainUi.log("ERROR: Couldn't split omnikey");
+                    mainUi.print("ERROR: Couldn't split omnikey");
                 }
-                mainUi.log(Constants.FIX_SEPARATOR);
+                mainUi.printSeperator();
             });
+            
+            try {
+                Util.deleteDirectory(Constants.JSON_DIRECTORY.toFile());
+            } catch (IOException ex) {
+                LOG.log(Level.SEVERE, "Couldn't delete json directory", ex);
+                mainUi.print("Couldn't remove json directory. Please check if any files in it are currently opended in another program");
+            }
 
             mainUi.setVisible(true);
 
-            mainUi.log("Me3 Toolkit started");
-            mainUi.log("Found Me3 install directory: " + me3InstallPath.toString());
+            mainUi.print("Me3 Toolkit started");
+            mainUi.print("Found Me3 install directory: " + me3InstallPath.toString());
         });
     }
 }

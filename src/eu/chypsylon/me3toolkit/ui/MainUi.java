@@ -24,6 +24,7 @@
 package eu.chypsylon.me3toolkit.ui;
 
 import java.awt.image.BufferedImage;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -123,12 +124,16 @@ public class MainUi extends javax.swing.JFrame {
         }
     }
 
-    public void log(String s) {
-        log(s, true);
+    public void print(String s) {
+        print(s, true);
     }
 
-    public void log(String s, boolean newLine) {
+    public void print(String s, boolean newLine) {
         logTextArea.append(s + (newLine ? "\r\n" : ""));
+    }
+    
+    public void printSeperator() {
+        logTextArea.append("**********************************\r\n");
     }
 
     public AboutPanel getAboutPanel() {
@@ -145,6 +150,10 @@ public class MainUi extends javax.swing.JFrame {
 
     public SplitOmnikeyPanel getSplitOmnikeyPanel() {
         return splitOmnikeyPanel;
+    }
+
+    public JTextArea getLogTextArea() {
+        return logTextArea;
     }
     
     private final AboutPanel aboutPanel;

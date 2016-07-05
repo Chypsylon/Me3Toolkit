@@ -24,6 +24,7 @@
 package eu.chypsylon.me3toolkit.util;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
@@ -163,5 +164,26 @@ public class Util {
             }
         }
         return null;
+    }
+
+    /**
+     * Recursively delete a directory and all its contents
+     * @param directory Directory to delete
+     * @throws java.io.IOException
+     */
+    public static void deleteDirectory(File directory) throws IOException {
+        if (directory.exists()) {
+            File[] files = directory.listFiles();
+            if (null != files) {
+                for (File file : files) {
+                    if (file.isDirectory()) {
+                        deleteDirectory(file);
+                    } else {
+                        Files.deleteIfExists(file.toPath());
+                    }
+                }
+            }
+        }
+        Files.deleteIfExists(directory.toPath());
     }
 }

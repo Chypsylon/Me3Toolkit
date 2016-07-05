@@ -23,8 +23,6 @@
  */
 package eu.chypsylon.me3toolkit.util;
 
-import eu.chypsylon.me3toolkit.ui.MainUi;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -115,7 +113,7 @@ public class Coalesced {
             if (gibbed.waitFor() == 0) {
                 LOG.log(Level.INFO, "Gibbed packed target {0} to {1}", new Object[]{jsonDir.toString(), coalescedPath.toString()});
                 if (deleteJsonDir) {
-                    deleteDirectory(jsonDir.toFile());
+                    Util.deleteDirectory(jsonDir.toFile());
                 }
                 return true;
             } else {
@@ -128,24 +126,4 @@ public class Coalesced {
         return false;
     }
    
-    /**
-     * Recursively delete a directory and all its contents
-     * @param directory Directory to delete
-     * @return true if the directory got deleted
-     */
-    private static void deleteDirectory(File directory) throws IOException {
-        if (directory.exists()) {
-            File[] files = directory.listFiles();
-            if (null != files) {
-                for (File file : files) {
-                    if (file.isDirectory()) {
-                        deleteDirectory(file);
-                    } else {
-                        Files.delete(file.toPath());
-                    }
-                }
-            }
-        }
-        Files.delete(directory.toPath());
-    }
 }
