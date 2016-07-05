@@ -23,6 +23,7 @@
  */
 package eu.chypsylon.me3toolkit.util;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -39,23 +40,24 @@ public class Coalesced {
     
     /**
      * 
-     * @param me3InstallPath
-     * @return 
+     * @param me3InstallPath 
+     * @throws java.io.IOException 
+     * @throws java.lang.InterruptedException 
      */
-    public static boolean binToJson(Path me3InstallPath) {
-        return binToJson(me3InstallPath.resolve(Constants.COALESCED_DIRECTORY), Constants.JSON_DIRECTORY);
+    public static void binToJson(Path me3InstallPath) throws IOException, InterruptedException {
+        binToJson(me3InstallPath.resolve(Constants.COALESCED_DIRECTORY), Constants.JSON_DIRECTORY);
     }
     
     /**
      * 
      * @param coalescedPath
-     * @param targetDir
-     * @return 
+     * @param targetDir 
+     * @throws java.io.IOException 
+     * @throws java.lang.InterruptedException 
      */
-    public static boolean binToJson(Path coalescedPath, Path targetDir) {
+    public static void binToJson(Path coalescedPath, Path targetDir) throws IOException, InterruptedException {
         if (Files.notExists(coalescedPath)) {
-            LOG.log(Level.SEVERE, "Coalesced doesn't exist");
-            return false;
+            throw new IOException("Coalesced doesn't exist");
         }
         
         if (Files.notExists(targetDir)) {
@@ -63,67 +65,53 @@ public class Coalesced {
                 Files.createDirectories(targetDir);
             } catch (IOException ex) {
                 LOG.log(Level.SEVERE, "Couldn't create target directory for unpacking", ex);
-                return false;
+                throw ex;
             }
         }
-        
-        try {
-            List<String> params = java.util.Arrays.asList(Constants.GIBBED_BINARY.toAbsolutePath().toString(), "--bin2json", coalescedPath.toAbsolutePath().toString(), targetDir.toAbsolutePath().toString());
-            ProcessBuilder processBuilder = new ProcessBuilder(params);
-            Process gibbed = processBuilder.start();
-            if (gibbed.waitFor() == 0) {
-                LOG.log(Level.INFO, "Gibbed unpacked target {0} to {1}", new Object[]{coalescedPath.toString(), targetDir.toString()});
-                return true;
-            } else {
-                LOG.log(Level.SEVERE, "Gibbed couldn't unpack target {0} to {1}", new Object[]{coalescedPath.toString(), targetDir.toString()});
-                return false;
-            }
-        } catch (IOException | InterruptedException ex) {
-            LOG.log(Level.SEVERE, null, ex);
+
+        List<String> params = java.util.Arrays.asList(Constants.GIBBED_BINARY.toAbsolutePath().toString(), "--bin2json", coalescedPath.toAbsolutePath().toString(), targetDir.toAbsolutePath().toString());
+        ProcessBuilder processBuilder = new ProcessBuilder(params);
+        Process gibbed = processBuilder.start();
+        if (gibbed.waitFor() == 0) {
+            LOG.log(Level.INFO, "Gibbed unpacked target {0} to {1}", new Object[]{coalescedPath.toString(), targetDir.toString()});
+        } else {
+            throw new IOException("Gibbed couldn't unnpack target " + coalescedPath.toString() + " to " + targetDir.toString());
         }
-        return false;
     }
 
     /**
      * 
-     * @param me3InstallPath
-     * @return 
+     * @param me3InstallPath 
+     * @throws java.io.IOException 
+     * @throws java.lang.InterruptedException 
      */
-    public static boolean jsonToBin(Path me3InstallPath) {
-        return jsonToBin(Constants.JSON_DIRECTORY, me3InstallPath.resolve(Constants.COALESCED_DIRECTORY), true);
+    public static void jsonToBin(Path me3InstallPath) throws IOException, InterruptedException {
+        jsonToBin(Constants.JSON_DIRECTORY, me3InstallPath.resolve(Constants.COALESCED_DIRECTORY), true);
     }
     
     /**
      * 
      * @param jsonDir
      * @param coalescedPath
-     * @param deleteJsonDir
-     * @return  
+     * @param deleteJsonDir  
+     * @throws java.io.IOException  
+     * @throws java.lang.InterruptedException  
      */
-    public static boolean jsonToBin(Path jsonDir, Path coalescedPath, java.lang.Boolean deleteJsonDir) {
+    public static void jsonToBin(Path jsonDir, Path coalescedPath, java.lang.Boolean deleteJsonDir) throws IOException, InterruptedException {
         if (Files.notExists(jsonDir)) {
-            LOG.log(Level.SEVERE, "Source directory for unpacking doesn't exist");
-            return false;
+            throw new IOException("Source directory for unpacking doesn't exist");
         }
-        
-        try {
-            List<String> params = java.util.Arrays.asList(Constants.GIBBED_BINARY.toAbsolutePath().toString(), "--json2bin", jsonDir.toAbsolutePath().toString(), coalescedPath.toAbsolutePath().toString());
-            ProcessBuilder processBuilder = new ProcessBuilder(params);
-            Process gibbed = processBuilder.start();
-            if (gibbed.waitFor() == 0) {
-                LOG.log(Level.INFO, "Gibbed packed target {0} to {1}", new Object[]{jsonDir.toString(), coalescedPath.toString()});
-                if (deleteJsonDir) {
-                    Util.deleteDirectory(jsonDir.toFile());
-                }
-                return true;
-            } else {
-                LOG.log(Level.SEVERE, "Gibbed couldn't pack target {0} to {1}", new Object[]{jsonDir.toString(), coalescedPath.toString()});
-                return false;
+
+        List<String> params = java.util.Arrays.asList(Constants.GIBBED_BINARY.toAbsolutePath().toString(), "--json2bin", jsonDir.toAbsolutePath().toString(), coalescedPath.toAbsolutePath().toString());
+        ProcessBuilder processBuilder = new ProcessBuilder(params);
+        Process gibbed = processBuilder.start();
+        if (gibbed.waitFor() == 0) {
+            LOG.log(Level.INFO, "Gibbed packed target {0} to {1}", new Object[]{jsonDir.toString(), coalescedPath.toString()});
+            if (deleteJsonDir) {
+                Util.deleteDirectory(jsonDir.toFile());
             }
-        } catch (IOException | InterruptedException ex) {
-            LOG.log(Level.SEVERE, null, ex);
+        } else {
+            throw new IOException("Gibbed couldn't pack target " + jsonDir.toString() + " to " + coalescedPath.toString());
         }
-        return false;
     }
-   
 }

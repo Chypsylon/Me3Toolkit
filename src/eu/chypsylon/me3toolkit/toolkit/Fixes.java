@@ -31,7 +31,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Iterator;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -45,124 +44,100 @@ import org.json.simple.parser.ParseException;
 public class Fixes {
     private static final Logger LOG = Logger.getLogger(Fixes.class.getName());
     
-    public static boolean applyFovFix(Me3Toolkit me3Toolkit, int fovValue) {
-        Path backupCoalesced = Util.backupCoalesced(me3Toolkit.getMe3InstallPath());
-        me3Toolkit.getMainUi().print("Backed up Coalesced.bin to " + backupCoalesced);
-        
-        me3Toolkit.getMainUi().print("Unpacking Coalesced.bin ...");
-        if (!Coalesced.binToJson(me3Toolkit.getMe3InstallPath())) {
-            return false;
-        }
-        
-        JSONParser jsonParser = new JSONParser();
-        
-        try (FileReader fileReader = new FileReader(Constants.JSON_DIRECTORY.resolve("06_bioinput.json").toString())) {
-            JSONObject jsonObject = (JSONObject)jsonParser.parse(fileReader);
-            JSONArray bindings = (JSONArray)((JSONObject)((JSONObject)jsonObject.get("sections")).get("sfxgame.sfxgamemodebase")).get("bindings");
-
-            for (Iterator it = bindings.iterator(); it.hasNext();) {
-                Object binding = it.next();
-                if (((String)binding).contains("Name=\"Shared_Aim\"")) {
-                    it.remove();
-                }
-            }
-            
-            String fovBinding = "( Name=\"Shared_Aim\", Command=\"SwapWeaponIfEmpty | TightAim | FOV 0 | OnRelease FOV " + fovValue + " | OnRelease StopTightAim\" )";
-            bindings.add(fovBinding);
-            
-            FileWriter fileWriter = new FileWriter(Constants.JSON_DIRECTORY.resolve("06_bioinput.json").toString());
-            fileWriter.write(jsonObject.toJSONString());
-            fileWriter.flush();
-            fileWriter.close();
-            
-        } catch (IOException | ParseException e) {
-            LOG.log(Level.SEVERE, null, e);
-            return false;
-        }
-        
-        me3Toolkit.getMainUi().print("Packing Coalesced.bin ...");
-        boolean jsonToBinSuccess = Coalesced.jsonToBin(me3Toolkit.getMe3InstallPath());
-        
-        //TODO: delete json directory
-        
-        return jsonToBinSuccess;
+    /**
+     * 
+     * @param me3Toolkit
+     * @param fovValue
+     * @throws IOException
+     * @throws InterruptedException
+     * @throws ParseException 
+     */
+    public static void applyFovFix(Me3Toolkit me3Toolkit, int fovValue) throws IOException, InterruptedException, ParseException {
+        preFix(me3Toolkit);
+        applyFixJson("sfxgame.sfxgamemodebase", "Name=\"Shared_Aim\"", "( Name=\"Shared_Aim\", Command=\"SwapWeaponIfEmpty | TightAim | FOV 0 | OnRelease FOV " + fovValue + " | OnRelease StopTightAim\" )");
+        postFix(me3Toolkit);
     }
 
-    public static final boolean activateTextChat(Me3Toolkit me3Toolkit, String hotkey) {
-        Path backupCoalesced = Util.backupCoalesced(me3Toolkit.getMe3InstallPath());
-        me3Toolkit.getMainUi().print("Backed up Coalesced.bin to " + backupCoalesced);
-        
-        me3Toolkit.getMainUi().print("Unpacking Coalesced.bin ...");
-        if (!Coalesced.binToJson(me3Toolkit.getMe3InstallPath())) {
-            return false;
-        }
-        JSONParser jsonParser = new JSONParser();
-        try (FileReader fileReader = new FileReader(Constants.JSON_DIRECTORY.resolve("06_bioinput.json").toString())) {
-            JSONObject jsonObject = (JSONObject) jsonParser.parse(fileReader);
-            JSONArray bindings = (JSONArray) ((JSONObject) ((JSONObject) jsonObject.get("sections")).get("sfxgame.sfxgamemodedefault")).get("bindings");
-            
-            for (Iterator it = bindings.iterator(); it.hasNext();) {
-                Object binding = it.next();
-                if (((String)binding).contains("Command=\"talk\"")) {
-                    it.remove();
-                }
-            }
-            
-            String chatBinding = "( Name=\"" + hotkey + "\", Command=\"talk\" )";
-            bindings.add(chatBinding);
-            
-            FileWriter fileWriter = new FileWriter(Constants.JSON_DIRECTORY.resolve("06_bioinput.json").toString());
-            fileWriter.write(jsonObject.toJSONString());
-            fileWriter.flush();
-            fileWriter.close();
-            
-        } catch (IOException | ParseException e) {
-            LOG.log(Level.SEVERE, null, e);
-            return false;
-        }
-        me3Toolkit.getMainUi().print("Packing Coalesced.bin ...");
-        boolean jsonToBinSuccess = Coalesced.jsonToBin(me3Toolkit.getMe3InstallPath());
-        //TODO: delete json directory
-        return jsonToBinSuccess;
+    /**
+     * 
+     * @param me3Toolkit
+     * @param hotkey
+     * @throws IOException
+     * @throws InterruptedException
+     * @throws ParseException 
+     */
+    public static final void activateTextChat(Me3Toolkit me3Toolkit, String hotkey) throws IOException, InterruptedException, ParseException {
+        preFix(me3Toolkit);
+        applyFixJson("sfxgame.sfxgamemodedefault", "Command=\"talk\"", "( Name=\"" + hotkey + "\", Command=\"talk\" )");
+        postFix(me3Toolkit);
     }
     
-    public static final boolean seperateOmniKey(Me3Toolkit me3Toolkit) {
+    /**
+     * 
+     * @param me3Toolkit
+     * @throws IOException
+     * @throws InterruptedException
+     * @throws ParseException 
+     */
+    public static final void seperateOmniKey(Me3Toolkit me3Toolkit) throws IOException, InterruptedException, ParseException {
+        preFix(me3Toolkit);
+        applyFixJson("sfxgame.sfxgamemodebase", "Name=\"Shared_Action\"", "( Name=\"Shared_Action\", Command=\"Exclusive TryStandingJump | OnRelease StormOff | OnHold 0.2 StormOn | Exclusive PressAction | OnTap 0.3 TapAction | OnHold 0.3 HoldAction\")");
+        applyFixJson("sfxgame.sfxgamemodebase", "Name=\"Shared_SquadAttack\"", "( Name=\"Shared_SquadAttack\", Command=\"Exclusive Used\" )");
+        postFix(me3Toolkit);
+    }
+    
+    /**
+     * 
+     * @param section
+     * @param removeEntry
+     * @param addEntry
+     * @throws IOException
+     * @throws ParseException 
+     */
+    private static void applyFixJson(String section, String removeEntry, String addEntry) throws IOException, ParseException {
+        try (FileReader fileReader = new FileReader(Constants.JSON_DIRECTORY.resolve("06_bioinput.json").toString())) {
+            JSONParser jsonParser = new JSONParser();
+            JSONObject jsonObject = (JSONObject) jsonParser.parse(fileReader);
+            JSONArray bindings = (JSONArray) ((JSONObject) ((JSONObject) jsonObject.get("sections")).get(section)).get("bindings");
+            
+            for (Iterator it = bindings.iterator(); it.hasNext();) {
+                Object binding = it.next();
+                if (((String) binding).contains(removeEntry)) {
+                    it.remove();
+                }
+            }
+            
+            bindings.add(addEntry);
+            
+            try (FileWriter fileWriter = new FileWriter(Constants.JSON_DIRECTORY.resolve("06_bioinput.json").toString())) {
+                fileWriter.write(jsonObject.toJSONString());
+                fileWriter.flush();
+            }
+        }
+    }
+
+    /**
+     * 
+     * @param me3Toolkit
+     * @throws IOException
+     * @throws InterruptedException 
+     */
+    private static void preFix(Me3Toolkit me3Toolkit) throws IOException, InterruptedException {
         Path backupCoalesced = Util.backupCoalesced(me3Toolkit.getMe3InstallPath());
         me3Toolkit.getMainUi().print("Backed up Coalesced.bin to " + backupCoalesced);
         
         me3Toolkit.getMainUi().print("Unpacking Coalesced.bin ...");
-        if (!Coalesced.binToJson(me3Toolkit.getMe3InstallPath())) {
-            return false;
-        }
-        JSONParser jsonParser = new JSONParser();
-        try (FileReader fileReader = new FileReader(Constants.JSON_DIRECTORY.resolve("06_bioinput.json").toString())) {
-            JSONObject jsonObject = (JSONObject) jsonParser.parse(fileReader);
-            JSONArray bindings = (JSONArray) ((JSONObject) ((JSONObject) jsonObject.get("sections")).get("sfxgame.sfxgamemodebase")).get("bindings");
-            
-            for (Iterator it = bindings.iterator(); it.hasNext();) {
-                Object binding = it.next();
-                if (((String)binding).contains("Name=\"Shared_Action\"")) {
-                    it.remove();
-                    bindings.remove(binding);
-                } else if (((String)binding).contains("Name=\"Shared_SquadAttack\"")) {
-                    it.remove();
-                }
-            }
-
-            bindings.add("( Name=\"Shared_Action\", Command=\"Exclusive TryStandingJump | OnRelease StormOff | OnHold 0.2 StormOn | Exclusive PressAction | OnTap 0.3 TapAction | OnHold 0.3 HoldAction\")");
-            bindings.add("( Name=\"Shared_SquadAttack\", Command=\"Exclusive Used\" )");
-
-            FileWriter fileWriter = new FileWriter(Constants.JSON_DIRECTORY.resolve("06_bioinput.json").toString());
-            fileWriter.write(jsonObject.toJSONString());
-            fileWriter.flush();
-            fileWriter.close();
-        } catch (IOException | ParseException e) {
-            LOG.log(Level.SEVERE, null, e);
-            return false;
-        }
+        Coalesced.binToJson(me3Toolkit.getMe3InstallPath());
+    }
+    
+    /**
+     * 
+     * @param me3Toolkit
+     * @throws IOException
+     * @throws InterruptedException 
+     */
+    private static void postFix(Me3Toolkit me3Toolkit) throws IOException, InterruptedException {
         me3Toolkit.getMainUi().print("Packing Coalesced.bin ...");
-        boolean jsonToBinSuccess = Coalesced.jsonToBin(me3Toolkit.getMe3InstallPath());
-        //TODO: delete json directory
-        return jsonToBinSuccess;
+        Coalesced.jsonToBin(me3Toolkit.getMe3InstallPath());
     }
 }

@@ -32,6 +32,7 @@ import java.nio.file.Path;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -100,48 +101,47 @@ public class Me3Toolkit {
             mainUi.getFovFixPanel().getApplyFovButton().addActionListener((ActionEvent e) -> {
                 try {
                     mainUi.printSeperator();
-                    int newFovValue = (int)mainUi.getFovFixPanel().getFovSpinner().getValue();
+                    int newFovValue = (int) mainUi.getFovFixPanel().getFovSpinner().getValue();
                     LOG.log(Level.INFO, "Setting FOV to {0}", newFovValue);
-                    if (Fixes.applyFovFix(this, newFovValue)) {
-                        LOG.log(Level.INFO, "Set FOV to {0}", newFovValue);
-                        mainUi.print("Set FOV to " + newFovValue);
-                    } else {
-                        LOG.log(Level.SEVERE, "Couldn't apply new FOV value");
-                        mainUi.print("ERROR: Couldn't apply new FOV value");
-                    }
-                } catch (Exception ex) {
-                    LOG.log(Level.SEVERE, null, ex);
+                    Fixes.applyFovFix(this, newFovValue);
+                    LOG.log(Level.INFO, "Set FOV to {0}", newFovValue);
+                    mainUi.print("Set FOV to " + newFovValue);
+                } catch (IOException | InterruptedException | ParseException ex) {
+                    LOG.log(Level.SEVERE, "Couldn't apply new FOV value", ex);
+                    mainUi.print("ERROR: Couldn't apply new FOV value");
                 }
                 mainUi.printSeperator();
             });
             
             mainUi.getTextChatPanel().getActivateButton().addActionListener((ActionEvent e) -> {
-                mainUi.printSeperator();
-                String hotkey = mainUi.getTextChatPanel().getHotkeyTextField().getText();
-                LOG.log(Level.INFO, "Activating text chat on hotkey {0}", hotkey);
-                if (Fixes.activateTextChat(this, hotkey)) {
+                try {
+                    mainUi.printSeperator();
+                    String hotkey = mainUi.getTextChatPanel().getHotkeyTextField().getText();
+                    LOG.log(Level.INFO, "Activating text chat on hotkey {0}", hotkey);
+                    Fixes.activateTextChat(this, hotkey);
                     LOG.log(Level.INFO, "Set text chat hotkey to {0}", hotkey);
                     mainUi.print("Set text chat hotkey to " + hotkey);
-                } else {
-                    LOG.log(Level.SEVERE, "Couldn't set text chat hotkey");
+                } catch (IOException | InterruptedException | ParseException ex) {
+                    LOG.log(Level.SEVERE, "Couldn't set text chat hotkey", ex);
                     mainUi.print("ERROR: Couldn't set text chat hotkey");
                 }
                 mainUi.printSeperator();
             });
             
             mainUi.getSplitOmnikeyPanel().getApplyButton().addActionListener((ActionEvent e) -> {
-                mainUi.printSeperator();
-                LOG.log(Level.INFO, "Splitting omnikey ...");
-                if (Fixes.seperateOmniKey(this)) {
+                try {
+                    mainUi.printSeperator();
+                    LOG.log(Level.INFO, "Splitting omnikey ...");
+                    Fixes.seperateOmniKey(this);
                     LOG.log(Level.INFO, "Split omnikey");
                     mainUi.print("Split Omnikey");
-                } else {
-                    LOG.log(Level.SEVERE, "Couldn't split omnikey");
+                } catch (IOException | InterruptedException | ParseException ex) {
+                    LOG.log(Level.SEVERE, "Couldn't split omnikey", ex);
                     mainUi.print("ERROR: Couldn't split omnikey");
                 }
                 mainUi.printSeperator();
             });
-            
+
             try {
                 Util.deleteDirectory(Constants.JSON_DIRECTORY.toFile());
             } catch (IOException ex) {
