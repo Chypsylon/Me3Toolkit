@@ -134,7 +134,7 @@ public class Util {
                 if (Files.notExists(Constants.BACKUP_DIRECTORY_BIN)) {
                     Files.createDirectories(Constants.BACKUP_DIRECTORY_BIN);
                 }
-                Files.copy(coalescedPath, Constants.BACKUP_DIRECTORY_BIN.resolve(newName));
+                Files.copy(coalescedPath, Constants.BACKUP_DIRECTORY_BIN.resolve(newName), StandardCopyOption.REPLACE_EXISTING);
                 LOG.log(Level.INFO, "Copied Coalesced.bin from {0} to backup directory {1}", new Object[]{coalescedPath.toString(), Constants.BACKUP_DIRECTORY_BIN.toString()});
                 return Constants.BACKUP_DIRECTORY_BIN.resolve(newName);
             } catch (IOException ex) {
